@@ -15,7 +15,7 @@ public class ActivityHelper {
     private ActivityHelper() {
     }
 
-    public static void config(Context context) {
+    public static void  config(Context context) {
         mContext = context;
     }
 

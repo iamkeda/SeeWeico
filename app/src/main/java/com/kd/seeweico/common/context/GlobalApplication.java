@@ -1,11 +1,15 @@
 package com.kd.seeweico.common.context;
 
 import android.app.Application;
+import android.os.Environment;
 import android.os.Handler;
 
+import com.kd.seeweico.common.setting.SettingUtility;
 import com.kd.seeweico.common.utils.ActivityHelper;
+import com.kd.seeweico.common.utils.SDcardUtils;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,14 +31,10 @@ public class GlobalApplication extends Application {
         this.mOkHttpClient = new OkHttpClient();
         this.setOkhttpClient(CONN_TIMEOUT, READ_TIMEOUT);
         ActivityHelper.config(this);
-
+        SettingUtility.setSettingUtility();
     }
 
     public static GlobalApplication getInstance() {
-        if (mGlobalApplication == null) {
-            new GlobalApplication();
-            getInstance();
-        }
         return mGlobalApplication;
     }
 
@@ -42,10 +42,14 @@ public class GlobalApplication extends Application {
         return this.mHandler;
     }
 
-//    public String getAppPath() {
-//        //if ("android".equals())
-//        return "";
-//    }
+    public String getAppPath() {
+        if ("android".equals(SettingUtility.getStringSetting("root_path"))) {
+            File file = getInstance().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            return file != null ? file.getAbsolutePath() + File.separator : this.getCacheDir().getAbsolutePath() + File.separator;
+        } else {
+            return SDcardUtils.getSDcardPath();
+        }
+    }
 
     public void setOkhttpClient(int connTimeOut, int socketTimeout) {
         if (this.mOkHttpClient != null) {
