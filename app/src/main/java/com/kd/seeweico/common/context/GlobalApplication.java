@@ -51,6 +51,18 @@ public class GlobalApplication extends Application {
         }
     }
 
+    public String getImagePath() {
+        return this.getAppPath() + SettingUtility.getPermanentSettingAsStr("com_m_common_image", "image") + File.separator;
+    }
+
+    public String getDataPath() {
+        return this.getAppPath() + SettingUtility.getPermanentSettingAsStr("com_m_common_json", "data") + File.separator;
+    }
+
+    public OkHttpClient getOkhttpClient() {
+        return this.mOkHttpClient;
+    }
+
     public void setOkhttpClient(int connTimeOut, int socketTimeout) {
         if (this.mOkHttpClient != null) {
             this.mOkHttpClient.setConnectTimeout((long)connTimeOut, TimeUnit.MILLISECONDS);
