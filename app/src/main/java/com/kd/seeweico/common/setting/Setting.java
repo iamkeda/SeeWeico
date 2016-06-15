@@ -11,15 +11,15 @@ import java.util.Map;
  */
 public class Setting extends SettingBean implements Serializable {
     private static final long serialVersionUID = 1399762922574268795L;
-    private Map<String, Setting> extras = new HashMap<>();
+    private Map<String, SettingExtra> extras = new HashMap<>();
 
     public Setting() {}
 
-    public Map<String, Setting> getExtras() {
+    public Map<String, SettingExtra> getExtras() {
         return this.extras;
     }
 
-    public void setExtras(Map<String, Setting> extras) {
+    public void setExtras(Map<String, SettingExtra> extras) {
         this.extras = extras;
     }
 
