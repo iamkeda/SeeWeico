@@ -30,10 +30,28 @@ public class GlobalApplication extends Application {
 
     }
 
+    public static GlobalApplication getInstance() {
+        if (mGlobalApplication == null) {
+            new GlobalApplication();
+            getInstance();
+        }
+        return mGlobalApplication;
+    }
+
+    public Handler getHandler() {
+        return this.mHandler;
+    }
+
+//    public String getAppPath() {
+//        //if ("android".equals())
+//        return "";
+//    }
+
     public void setOkhttpClient(int connTimeOut, int socketTimeout) {
         if (this.mOkHttpClient != null) {
             this.mOkHttpClient.setConnectTimeout((long)connTimeOut, TimeUnit.MILLISECONDS);
             this.mOkHttpClient.setReadTimeout((long)socketTimeout, TimeUnit.MILLISECONDS);
         }
     }
+
 }
