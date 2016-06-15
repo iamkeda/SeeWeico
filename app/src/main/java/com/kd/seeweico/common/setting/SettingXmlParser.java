@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.Exchanger;
+
 
 /**
  * Created by KD on 2016/6/15.
@@ -27,7 +27,7 @@ public class SettingXmlParser {
         Setting readSetting = null;
         SettingArray readSettingArray = null;
         SettingExtra readSettingExtra = null;
-        XmlPullParser xmlResParser = null;
+        XmlPullParser xmlResParser;
 
         try {
             String packageName = context.getPackageName();
@@ -41,13 +41,13 @@ public class SettingXmlParser {
                     case 2:
                         if ("setting-array".equals(xmlResParser.getName())) {
                             readSettingArray = new SettingArray();
-                            readSettingArray.setType(xmlResParser.getAttributeValue((String)null, "type"));
-                            readSettingArray.setIndex(Integer.parseInt(xmlResParser.getAttributeValue((String)null, "index")));
+                            readSettingArray.setType(xmlResParser.getAttributeValue(null, "type"));
+                            readSettingArray.setIndex(Integer.parseInt(xmlResParser.getAttributeValue(null, "index")));
                         }
 
                         if ("setting".equals(xmlResParser.getName())) {
                             readSetting = new Setting();
-                            readSetting.setType(xmlResParser.getAttributeValue((String)null, "type"));
+                            readSetting.setType(xmlResParser.getAttributeValue(null, "type"));
                         }
 
                         if ("extras".equals(xmlResParser.getName())) {
@@ -56,7 +56,7 @@ public class SettingXmlParser {
 
                         if ("extra".equals(xmlResParser.getName())) {
                             readSettingExtra = new SettingExtra();
-                            readSettingExtra.setType(xmlResParser.getAttributeValue((String)null, "type"));
+                            readSettingExtra.setType(xmlResParser.getAttributeValue(null, "type"));
                         }
 
                         if ("des".equals(xmlResParser.getName())) {
@@ -122,7 +122,7 @@ public class SettingXmlParser {
         while (iterator.hasNext()) {
             SettingArray array = (SettingArray) iterator.next();
             if (array.getSettingArray().size() > array.getIndex()) {
-                Setting setting1 = (Setting) array.getSettingArray().get(array.getIndex());
+                Setting setting1 = array.getSettingArray().get(array.getIndex());
                 setting1.setType(array.getType());
                 settingMap.put(setting1.getType(), setting1);
             }
